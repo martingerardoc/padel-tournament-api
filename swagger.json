@@ -1,0 +1,398 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Padel Tournament Management API",
+    "description": "REST API for managing padel tournaments and players.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local development server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Tournaments",
+      "description": "Tournament management endpoints"
+    },
+    {
+      "name": "Players",
+      "description": "Player management endpoints"
+    }
+  ],
+  "paths": {
+    "/api/tournaments": {
+      "get": {
+        "tags": ["Tournaments"],
+        "summary": "Get all tournaments",
+        "responses": {
+          "200": {
+            "description": "List of tournaments returned successfully."
+          },
+          "500": {
+            "description": "Server error."
+          }
+        }
+      },
+      "post": {
+        "tags": ["Tournaments"],
+        "summary": "Create a tournament",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TournamentInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Tournament created successfully."
+          },
+          "400": {
+            "description": "Validation error."
+          },
+          "500": {
+            "description": "Server error."
+          }
+        }
+      }
+    },
+    "/api/tournaments/{id}": {
+      "get": {
+        "tags": ["Tournaments"],
+        "summary": "Get a tournament by ID",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tournament returned successfully."
+          },
+          "400": {
+            "description": "Invalid tournament ID."
+          },
+          "404": {
+            "description": "Tournament not found."
+          },
+          "500": {
+            "description": "Server error."
+          }
+        }
+      },
+      "put": {
+        "tags": ["Tournaments"],
+        "summary": "Update a tournament",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TournamentInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tournament updated successfully."
+          },
+          "400": {
+            "description": "Validation error or invalid ID."
+          },
+          "404": {
+            "description": "Tournament not found."
+          },
+          "500": {
+            "description": "Server error."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Tournaments"],
+        "summary": "Delete a tournament",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tournament deleted successfully."
+          },
+          "400": {
+            "description": "Invalid tournament ID."
+          },
+          "404": {
+            "description": "Tournament not found."
+          },
+          "500": {
+            "description": "Server error."
+          }
+        }
+      }
+    },
+    "/api/players": {
+      "get": {
+        "tags": ["Players"],
+        "summary": "Get all players",
+        "responses": {
+          "200": {
+            "description": "List of players returned successfully."
+          },
+          "500": {
+            "description": "Server error."
+          }
+        }
+      },
+      "post": {
+        "tags": ["Players"],
+        "summary": "Create a player",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlayerInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Player created successfully."
+          },
+          "400": {
+            "description": "Validation error or duplicate email."
+          },
+          "500": {
+            "description": "Server error."
+          }
+        }
+      }
+    },
+    "/api/players/{id}": {
+      "get": {
+        "tags": ["Players"],
+        "summary": "Get a player by ID",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player returned successfully."
+          },
+          "400": {
+            "description": "Invalid player ID."
+          },
+          "404": {
+            "description": "Player not found."
+          },
+          "500": {
+            "description": "Server error."
+          }
+        }
+      },
+      "put": {
+        "tags": ["Players"],
+        "summary": "Update a player",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlayerInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Player updated successfully."
+          },
+          "400": {
+            "description": "Validation error or invalid ID."
+          },
+          "404": {
+            "description": "Player not found."
+          },
+          "500": {
+            "description": "Server error."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Players"],
+        "summary": "Delete a player",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player deleted successfully."
+          },
+          "400": {
+            "description": "Invalid player ID."
+          },
+          "404": {
+            "description": "Player not found."
+          },
+          "500": {
+            "description": "Server error."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "id": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "MongoDB ObjectId",
+        "schema": {
+          "type": "string",
+          "example": "68c9c1234567890123456789"
+        }
+      }
+    },
+    "schemas": {
+      "TournamentInput": {
+        "type": "object",
+        "required": [
+          "name",
+          "description",
+          "location",
+          "category",
+          "startDate",
+          "endDate",
+          "maxTeams",
+          "status",
+          "entryFee"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "San Nicolas Open 2026"
+          },
+          "description": {
+            "type": "string",
+            "example": "Intermediate padel tournament"
+          },
+          "location": {
+            "type": "string",
+            "example": "San Nicolas"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "Beginner",
+              "Intermediate",
+              "Advanced"
+            ],
+            "example": "Intermediate"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2026-10-10"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2026-10-11"
+          },
+          "maxTeams": {
+            "type": "integer",
+            "minimum": 2,
+            "example": 16
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "registration",
+              "in-progress",
+              "completed",
+              "cancelled"
+            ],
+            "example": "registration"
+          },
+          "entryFee": {
+            "type": "number",
+            "minimum": 0,
+            "example": 15000
+          }
+        }
+      },
+      "PlayerInput": {
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName",
+          "email",
+          "phone",
+          "category",
+          "ranking",
+          "active"
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "Juan"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Perez"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "juan.perez@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "3364000000"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "Beginner",
+              "Intermediate",
+              "Advanced"
+            ],
+            "example": "Intermediate"
+          },
+          "ranking": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 15
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      }
+    }
+  }
+}

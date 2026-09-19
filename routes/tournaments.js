@@ -3,7 +3,9 @@ import express from "express";
 import {
   getAllTournaments,
   getTournamentById,
-  createTournament
+  createTournament,
+  updateTournament,
+  deleteTournament
 } from "../controllers/tournamentsController.js";
 
 import { tournamentValidation } from "../validators/tournamentValidator.js";
@@ -21,5 +23,14 @@ router.post(
   validate,
   createTournament
 );
+
+router.put(
+  "/:id",
+  tournamentValidation,
+  validate,
+  updateTournament
+);
+
+router.delete("/:id", deleteTournament);
 
 export default router;
