@@ -9,7 +9,11 @@
     {
       "url": "http://localhost:3000",
       "description": "Local development server"
-    }
+    },
+    {
+    "url": "https://padel-tournament-api-bnj7.onrender.com",
+    "description": "Production server"
+  }
   ],
   "tags": [
     {
