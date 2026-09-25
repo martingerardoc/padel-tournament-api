@@ -10,6 +10,7 @@ import {
 
 import { playerValidation } from "../validators/playerValidator.js";
 import { validate } from "../middleware/validation.js";
+import { ensureAuthenticated } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -21,18 +22,21 @@ router.post(
   "/",
   playerValidation,
   validate,
-  createPlayer
+  createPlayer,
+  ensureAuthenticated
 );
 router.put(
   "/:id",
   playerValidation,
   validate,
-  updatePlayer
+  updatePlayer,
+  ensureAuthenticated
 );
 
 router.delete(
   "/:id",
-  deletePlayer
+  deletePlayer,
+  ensureAuthenticated
 );
 
 export default router;

@@ -11,6 +11,8 @@ import {
 import { tournamentValidation } from "../validators/tournamentValidator.js";
 import { validate } from "../middleware/validation.js";
 
+import { ensureAuthenticated } from "../middleware/auth.js";
+
 const router = express.Router();
 
 router.get("/", getAllTournaments);
@@ -21,16 +23,18 @@ router.post(
   "/",
   tournamentValidation,
   validate,
-  createTournament
+  createTournament,
+  ensureAuthenticated
 );
 
 router.put(
   "/:id",
   tournamentValidation,
   validate,
-  updateTournament
+  updateTournament,
+  ensureAuthenticated
 );
 
-router.delete("/:id", deleteTournament);
+router.delete("/:id", deleteTournament, ensureAuthenticated);
 
 export default router;
