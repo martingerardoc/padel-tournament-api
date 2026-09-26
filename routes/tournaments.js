@@ -21,20 +21,22 @@ router.get("/:id", getTournamentById);
 
 router.post(
   "/",
+  ensureAuthenticated,
   tournamentValidation,
   validate,
   createTournament,
-  ensureAuthenticated
+  
 );
 
 router.put(
   "/:id",
+  ensureAuthenticated,
   tournamentValidation,
   validate,
   updateTournament,
-  ensureAuthenticated
+  
 );
 
-router.delete("/:id", deleteTournament, ensureAuthenticated);
+router.delete("/:id", ensureAuthenticated, deleteTournament);
 
 export default router;
