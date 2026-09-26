@@ -11,9 +11,9 @@
       "description": "Local development server"
     },
     {
-    "url": "https://padel-tournament-api-bnj7.onrender.com",
-    "description": "Production server"
-  }
+      "url": "https://padel-tournament-api-bnj7.onrender.com",
+      "description": "Production server"
+    }
   ],
   "tags": [
     {
@@ -28,7 +28,9 @@
   "paths": {
     "/api/tournaments": {
       "get": {
-        "tags": ["Tournaments"],
+        "tags": [
+          "Tournaments"
+        ],
         "summary": "Get all tournaments",
         "responses": {
           "200": {
@@ -40,8 +42,15 @@
         }
       },
       "post": {
-        "tags": ["Tournaments"],
+        "tags": [
+          "Tournaments"
+        ],
         "summary": "Create a tournament",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -59,6 +68,9 @@
           "400": {
             "description": "Validation error."
           },
+          "401": {
+            "description": "Authentication required."
+          },
           "500": {
             "description": "Server error."
           }
@@ -67,7 +79,9 @@
     },
     "/api/tournaments/{id}": {
       "get": {
-        "tags": ["Tournaments"],
+        "tags": [
+          "Tournaments"
+        ],
         "summary": "Get a tournament by ID",
         "parameters": [
           {
@@ -90,8 +104,15 @@
         }
       },
       "put": {
-        "tags": ["Tournaments"],
+        "tags": [
+          "Tournaments"
+        ],
         "summary": "Update a tournament",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
         "parameters": [
           {
             "$ref": "#/components/parameters/id"
@@ -114,6 +135,9 @@
           "400": {
             "description": "Validation error or invalid ID."
           },
+          "401": {
+            "description": "Authentication required."
+          },
           "404": {
             "description": "Tournament not found."
           },
@@ -123,8 +147,15 @@
         }
       },
       "delete": {
-        "tags": ["Tournaments"],
+        "tags": [
+          "Tournaments"
+        ],
         "summary": "Delete a tournament",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
         "parameters": [
           {
             "$ref": "#/components/parameters/id"
@@ -137,6 +168,9 @@
           "400": {
             "description": "Invalid tournament ID."
           },
+          "401": {
+            "description": "Authentication required."
+          },
           "404": {
             "description": "Tournament not found."
           },
@@ -148,7 +182,9 @@
     },
     "/api/players": {
       "get": {
-        "tags": ["Players"],
+        "tags": [
+          "Players"
+        ],
         "summary": "Get all players",
         "responses": {
           "200": {
@@ -160,8 +196,15 @@
         }
       },
       "post": {
-        "tags": ["Players"],
+        "tags": [
+          "Players"
+        ],
         "summary": "Create a player",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -179,6 +222,9 @@
           "400": {
             "description": "Validation error or duplicate email."
           },
+          "401": {
+            "description": "Authentication required."
+          },
           "500": {
             "description": "Server error."
           }
@@ -187,7 +233,9 @@
     },
     "/api/players/{id}": {
       "get": {
-        "tags": ["Players"],
+        "tags": [
+          "Players"
+        ],
         "summary": "Get a player by ID",
         "parameters": [
           {
@@ -210,8 +258,15 @@
         }
       },
       "put": {
-        "tags": ["Players"],
+        "tags": [
+          "Players"
+        ],
         "summary": "Update a player",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
         "parameters": [
           {
             "$ref": "#/components/parameters/id"
@@ -234,6 +289,9 @@
           "400": {
             "description": "Validation error or invalid ID."
           },
+          "401": {
+            "description": "Authentication required."
+          },
           "404": {
             "description": "Player not found."
           },
@@ -243,8 +301,15 @@
         }
       },
       "delete": {
-        "tags": ["Players"],
+        "tags": [
+          "Players"
+        ],
         "summary": "Delete a player",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
         "parameters": [
           {
             "$ref": "#/components/parameters/id"
@@ -257,6 +322,9 @@
           "400": {
             "description": "Invalid player ID."
           },
+          "401": {
+            "description": "Authentication required."
+          },
           "404": {
             "description": "Player not found."
           },
@@ -268,6 +336,14 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "connect.sid",
+        "description": "Authentication is performed through GitHub OAuth. After successful authentication, Passport stores the authenticated user in an Express session identified by the connect.sid cookie."
+      }
+    },
     "parameters": {
       "id": {
         "name": "id",

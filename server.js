@@ -25,7 +25,11 @@ app.use(
   session({
     secret: "padel-tournament-session-secret",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      httpOnly: true
+    }
   })
 );
 

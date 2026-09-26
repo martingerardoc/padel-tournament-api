@@ -45,15 +45,17 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user._id);
+  done(null, user._id.toString());
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
     const db = getDb();
 
+    const { ObjectId } = await import("mongodb");
+
     const user = await db.collection("users").findOne({
-      _id: id
+      _id: new ObjectId(id)
     });
 
     done(null, user);

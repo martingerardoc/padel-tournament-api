@@ -20,17 +20,19 @@ router.get("/:id", getPlayerById);
 
 router.post(
   "/",
+  ensureAuthenticated,
   playerValidation,
   validate,
   createPlayer,
-  ensureAuthenticated
+  
 );
 router.put(
   "/:id",
+  ensureAuthenticated,
   playerValidation,
   validate,
   updatePlayer,
-  ensureAuthenticated
+  
 );
 
 router.delete(
