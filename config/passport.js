@@ -7,7 +7,9 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/github/callback"
+      callbackURL: process.env.NODE_ENV === "production"
+    ? "https://padel-tournament-api-bnj7.onrender.com/auth/github/callback"
+    : "http://localhost:3000/auth/github/callback"
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
